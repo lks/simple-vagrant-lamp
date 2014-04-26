@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
     v.customize ["modifyvm", :id, "--name", "precise64"]
   end
 
-  config.vm.synced_folder "./www", "/var/www", create: true
+  config.vm.synced_folder "/Applications/MAMP/htdocs/wine-be-cool/", "/var/www", create: true
   config.vm.synced_folder "./sqldump", "/var/sqldump", create: true
   config.vm.synced_folder "./scripts", "/var/scripts", create: true
 
