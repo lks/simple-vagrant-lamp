@@ -1,11 +1,11 @@
 sudo debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password root'
 sudo debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password root'
-sudo add-apt-repository ppa:chris-lea/node.js
-sudo add-apt-repository ppa:ondrej/php5
+sudo add-apt-repository -y ppa:chris-lea/node.js
+sudo add-apt-repository -y ppa:ondrej/php5
 sudo apt-get update
+sudo apt-get upgrade
 sudo apt-get -y install mysql-server-5.5 php5-mysql libsqlite3-dev apache2 php5 php5-dev build-essential php-pear nodejs npm
-sudo apt-get install -y python-software-properties python g++ make
-
+sudo apt-get install -y python-software-properties python g++ make php-apc
 sudo npm install -g bower
 
 
@@ -17,18 +17,13 @@ sudo dpkg-reconfigure --frontend noninteractive tzdata
 # Setup database
 if [ ! -f /var/log/databasesetup ];
 then
-    echo "DROP DATABASE IF EXISTS test" | mysql -uroot -proot
-    echo "CREATE USER 'devdb'@'localhost' IDENTIFIED BY 'devdb'" | mysql -uroot -proot
-    echo "CREATE DATABASE devdb" | mysql -uroot -proot
-    echo "GRANT ALL ON devdb.* TO 'devdb'@'localhost'" | mysql -uroot -proot
+    echo "DROP DATABASE IF EXISTS wine-be-cool" | mysql -uroot -proot
+    echo "CREATE USER 'cap1'@'localhost' IDENTIFIED BY 'cap1'" | mysql -uroot -proot
+    echo "CREATE DATABASE wine-be-cool" | mysql -uroot -proot
+    echo "GRANT ALL ON cap1.* TO 'cap1'@'localhost'" | mysql -uroot -proot
     echo "flush privileges" | mysql -uroot -proot
 
-    sudo touch /var/log/databasesetup
 
-    if [ -f /var/sqldump/database.sql ];
-    then
-        mysql -uroot -proot devdb < /var/sqldump/database.sql
-    fi
 fi
 
 
@@ -73,6 +68,10 @@ then
 
     sudo touch /var/log/phpsetup
 fi
+
+# Add symfony create
+cd /var/www/
+php app/console doctrine:database:create
 
 
 # Make sure things are up and running as they should be
