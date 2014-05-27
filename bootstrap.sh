@@ -3,9 +3,13 @@ sudo debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_aga
 sudo add-apt-repository ppa:chris-lea/node.js
 sudo add-apt-repository ppa:ondrej/php5
 sudo apt-get update
-sudo apt-get -y install mysql-server-5.5 php5-mysql libsqlite3-dev apache2 php5 php5-dev build-essential php-pear nodejs npm
+sudo apt-get -y install mysql-server-5.5 php5-mysql libsqlite3-dev apache2 php5 php5-dev build-essential php-pear npm
 sudo apt-get install -y python-software-properties python g++ make
 
+sudo apt-get -y install build-essential erlang-base-hipe erlang-dev erlang-manpages erlang-eunit erlang-nox libicu-dev libmozjs-dev libcurl4-openssl-dev pkg-config
+
+sudo apt-get upgrade
+sudo apt-get install -y nodejs
 sudo npm install -g bower
 
 
